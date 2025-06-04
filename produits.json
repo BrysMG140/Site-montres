@@ -1,0 +1,18 @@
+
+[
+    {
+        "nom": "Montre Luxe Acier",
+        "prix": 199.99,
+        "image": "https://via.placeholder.com/200x200?text=Montre+1"
+    },
+    {
+        "nom": "Montre Classique Cuir",
+        "prix": 149.99,
+        "image": "https://via.placeholder.com/200x200?text=Montre+2"
+    },
+    {
+        "nom": "Montre Sport Homme",
+        "prix": 89.99,
+        "image": "https://via.placeholder.com/200x200?text=Montre+3"
+    }
+]

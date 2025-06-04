@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Modifier Produits</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        .admin-container h2 {
+            text-align: center;
+            color: #e60000;
+        }
+        .admin-container label, .admin-container input {
+            display: block;
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+        .admin-container button {
+            background-color: #e60000;
+            color: white;
+            border: none;
+            padding: 0.7rem;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <h2>Ajouter un Produit</h2>
+        <form id="adminForm">
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom" required>
+
+            <label for="prix">Prix :</label>
+            <input type="number" id="prix" name="prix" step="0.01" required>
+
+            <label for="image">URL de l'image :</label>
+            <input type="text" id="image" name="image" required>
+
+            <button type="submit">Ajouter le produit</button>
+        </form>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        document.getElementById('adminForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const nom = document.getElementById('nom').value;
+            const prix = parseFloat(document.getElementById('prix').value);
+            const image = document.getElementById('image').value;
+
+            const nouveauProduit = { nom, prix, image };
+
+            fetch('produits.json')
+                .then(res => res.json())
+                .then(data => {
+                    data.push(nouveauProduit);
+                    return fetch('produits.json', {
+                        method: 'POST', // Ceci nécessite un backend
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+                })
+                .then(() => {
+                    document.getElementById('message').textContent = "Produit ajouté (note : sans backend, cela ne sauvegardera pas)";
+                })
+                .catch(err => {
+                    document.getElementById('message').textContent = "Erreur : impossible de sauvegarder sans backend.";
+                });
+        });
+    </script>
+</body>
+</html>
